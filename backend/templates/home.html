@@ -10,6 +10,17 @@
 <body>
     <h1>{{title}}</h1>
     <p>{{content}}</p>
+
+    <!-- JINJA -->
+    <ul>
+        {% for post in posts %}
+            <li>
+                <b>Title:</b> {{ post.title|upper }} <br>
+                <b>Description:</b> {{ post.description }}
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 
 </html>

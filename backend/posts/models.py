@@ -13,3 +13,10 @@ class Posts(models.Model):
     # CASCADE  => delete post if the user is deleted
     # PREVENT  => prevent post from being deleted if the user is deleted
     # SET_NULL => set the post to null if the user is deleted
+    
+    def __str__(self):
+        return f"POST: ${self.title}"
+    
+    class Meta:
+        verbose_name = "Post"
+        verbose_name_plural = "Posts"
