@@ -10,6 +10,8 @@
 <body>
     <h1>{{title}}</h1>
     <p>{{content}}</p>
+    <br>
+    <a href="{% url 'create_post' %}">Create new post</a>
 
     <!-- JINJA -->
     <ul>
@@ -17,6 +19,9 @@
             <li>
                 <b>Title:</b> {{ post.title|upper }} <br>
                 <b>Description:</b> {{ post.description }}
+                <br>
+                <a href="{% url 'update_post' post.id %}">Update</a>
+                <a href="{% url 'delete_post' post.id %}">Delete</a>
                 <hr>
             </li>
         {% endfor %}

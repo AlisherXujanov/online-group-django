@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Posts
+from .forms import PostsForm
 
-# Create your views here.
+# CRUD  =>  Create, Read, Update, Delete
 
 def home(request):
     context = {
@@ -10,6 +11,41 @@ def home(request):
         "posts": Posts.objects.all()
     }
     return render(request, "home.html", context)
+
+def create_post(request):
+    if request.method == "POST":
+        form = PostsForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect("home")
+    
+    context = {
+        "form": PostsForm()
+    }
+    return render(request, "create_post.html", context)
+
+
+def update_post(request, pk:int):
+    post = Posts.objects.get(pk=pk)
+    
+    if request.method == "POST":
+        form = PostsForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+        return redirect("home")
+    
+    context = {
+        "form": PostsForm(instance=post)
+    }
+    return render(request, "update_post.html", context)
+
+
+def delete_post(request, pk:int):
+    post = Posts.objects.get(pk=pk)
+    post.delete()
+    return redirect("home")
+    
+
 
 # https://www.domain-name.com        =>  landing page
 # https://www.domain-name.com/path   =>  spacial page
