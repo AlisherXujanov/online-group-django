@@ -5,21 +5,17 @@
 {% endblock %}
 
 {% block content %}
-
-<h1>{{title}}</h1>
-<p>{{content}}</p>
-<br>
-<a href="{% url 'create_post' %}">Create new post</a>
-
-<ul>
+<h1>Posts</h1>
+<ul class="list-group">
     {% for post in posts %}
-    <li>
+    <li class="list-group-item bg-light mb-2">
         <b>Title:</b> {{ post.title|upper }} <br>
         <b>Description:</b> {{ post.description }}
         <br>
-        <a href="{% url 'update_post' post.id %}">Update</a>
-        <a href="{% url 'delete_post' post.id %}">Delete</a>
-        <hr>
+        <div class="action-btns d-flex justify-content-end mt-3">
+            <a class="btn btn-info btn-sm mx-2" href="{% url 'update_post' post.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mx-2" href="{% url 'delete_post' post.id %}">Delete</a>
+        </div>
     </li>
     {% endfor %}
 </ul>

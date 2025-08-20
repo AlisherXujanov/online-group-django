@@ -1,11 +1,14 @@
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">
-        {% if btn_text %}
-        {{ btn_text }}
-        {% else %}
-        Submit
-        {% endif %}
-    </button>
-</form>
+{% load django_bootstrap5 %}
+<div class="container">
+    <form method="POST" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-success">
+            {% if btn_text %}
+            {{ btn_text }}
+            {% else %}
+            Submit
+            {% endif %}
+        </button>
+    </form>
+</div>
