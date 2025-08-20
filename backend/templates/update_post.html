@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% block title %}
+<title>Create Post</title>
+{% endblock %}
 
-<body>
-    <h1>Update Post</h1>
+{% block content %}
+<h1>Update Post</h1>
 
-    {% include 'form_snippets.html' with form=form btn_text="Update Post" %}
-</body>
-</html>
+{% include 'form_snippets.html' with form=form btn_text="Update Post" %}
+{% endblock %}

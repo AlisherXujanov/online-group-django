@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% block title %}
+<title>Unit School: HOME</title>
+{% endblock %}
 
-<body>
-    <h1>{{title}}</h1>
-    <p>{{content}}</p>
-    <br>
-    <a href="{% url 'create_post' %}">Create new post</a>
+{% block content %}
 
-    <!-- JINJA -->
-    <ul>
-        {% for post in posts %}
-            <li>
-                <b>Title:</b> {{ post.title|upper }} <br>
-                <b>Description:</b> {{ post.description }}
-                <br>
-                <a href="{% url 'update_post' post.id %}">Update</a>
-                <a href="{% url 'delete_post' post.id %}">Delete</a>
-                <hr>
-            </li>
-        {% endfor %}
-    </ul>
-</body>
+<h1>{{title}}</h1>
+<p>{{content}}</p>
+<br>
+<a href="{% url 'create_post' %}">Create new post</a>
 
-</html>
+<ul>
+    {% for post in posts %}
+    <li>
+        <b>Title:</b> {{ post.title|upper }} <br>
+        <b>Description:</b> {{ post.description }}
+        <br>
+        <a href="{% url 'update_post' post.id %}">Update</a>
+        <a href="{% url 'delete_post' post.id %}">Delete</a>
+        <hr>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
