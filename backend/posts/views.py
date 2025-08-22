@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Posts
 from .forms import PostsForm
+from django.contrib.auth.decorators import login_required
 
 # CRUD  =>  Create, Read, Update, Delete
 
@@ -12,11 +13,15 @@ def home(request):
     }
     return render(request, "home.html", context)
 
+
+@login_required
 def create_post(request):
     if request.method == "POST":
         form = PostsForm(request.POST)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
         return redirect("home")
     
     context = {
@@ -25,26 +30,30 @@ def create_post(request):
     return render(request, "create_post.html", context)
 
 
+@login_required
 def update_post(request, pk:int):
     post = Posts.objects.get(pk=pk)
-    
-    if request.method == "POST":
-        form = PostsForm(request.POST, instance=post)
-        if form.is_valid():
-            form.save()
+    if request.user.id == post.author.id:
+        if request.method == "POST":
+            form = PostsForm(request.POST, instance=post)
+            if form.is_valid():
+                form.save()
+            return redirect("home")
+        
+        context = {
+            "form": PostsForm(instance=post)
+        }
+        return render(request, "update_post.html", context)
+    else:
         return redirect("home")
-    
-    context = {
-        "form": PostsForm(instance=post)
-    }
-    return render(request, "update_post.html", context)
 
 
+@login_required
 def delete_post(request, pk:int):
     post = Posts.objects.get(pk=pk)
-    post.delete()
+    if request.user.id == post.author.id:
+        post.delete()
     return redirect("home")
-    
 
 
 # https://www.domain-name.com        =>  landing page

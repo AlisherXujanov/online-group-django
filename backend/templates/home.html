@@ -12,9 +12,19 @@
         <b>Title:</b> {{ post.title|upper }} <br>
         <b>Description:</b> {{ post.description }}
         <br>
-        <div class="action-btns d-flex justify-content-end mt-3">
-            <a class="btn btn-info btn-sm mx-2" href="{% url 'update_post' post.id %}">Update</a>
-            <a class="btn btn-danger btn-sm mx-2" href="{% url 'delete_post' post.id %}">Delete</a>
+        <div class="action-btns d-flex justify-content-between mt-3">
+            <a class="text-muted d-flex align-items-center" href="{% url 'profile' post.author.id %}">
+                <b class="me-2">Author:</b>
+                <img src="{{ post.author.profile.image.url }}" alt="author iamge" class="rounded-circle" width="25"
+                    height="25">
+                <span class="ms-2">{{ post.author.username }}</span>
+            </a>
+            {% if request.user.id == post.author.id %}
+            <div>
+                <a class="btn btn-info btn-sm mx-2" href="{% url 'update_post' post.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mx-2" href="{% url 'delete_post' post.id %}">Delete</a>
+            </div>
+            {% endif %}
         </div>
     </li>
     {% endfor %}

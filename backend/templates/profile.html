@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title>Profile of {{ profile.user.username }}</title>
+<title>Profile of {{ profile.user.username }}</title>
 {% endblock %}
 
 {% block content %}
 <h1>Profile of: {{ profile.user.username }} </h1>
-<img 
-    src="{{ profile.image.url }}" 
-    alt="Profile image"
-    class="rounded-circle m-2"
-    width="200" 
-    height="200"
->
+
+{% if request.user.is_authenticated and profile.user.id == request.user.id %}
+<a href="{% url 'account_logout' %}" class="btn btn-outline-danger mx-1 float-end">Logout</a>
+{% endif %}
+
+<img src="{{ profile.image.url }}" alt="Profile image" class="rounded-circle m-2" width="200" height="200">
 <p>{{ profile.bio }}</p>
 {% endblock %}

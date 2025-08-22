@@ -141,3 +141,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'account_login'
+LOGOUT_URL = 'account_logout'
+SIGNUP_REDIRECT_URL = 'home'
+SIGNUP_URL = 'account_signup'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "none"
